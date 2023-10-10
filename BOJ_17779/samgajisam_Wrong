@@ -1,0 +1,135 @@
+'''
+테스트케이스는 다 맞지만 1%에서 오답
+-> 집 가서 다시 해봄 수고
+'''
+
+
+'''
+다섯 개의 선거구 -> 각 구역은 다섯 선거구 중 하나에 포함되어야 함
+선거구 -> 구역을 적어도 하나 포함, 각 구역들은 모두 연결되어야 함(모두 같은 선거구)
+5번 선거구 지정
+-> 왼위 1, 오위2, 왼아3, 오아4
+인구 가장 많은 선거구 - 가장 적은 선거구 최소값
+'''
+
+def border(dir,fi,fj,arr,ma):
+    delta = [[-1, 1], [1, 1], [-1, -1], [1, -1], [0,1]]
+    for d in range(ma+1):
+        ni = fi + (delta[dir][0] * d)
+        nj = fj + (delta[dir][1] * d)
+        if 0<=ni<N and 0<=nj<N and arr[ni][nj] == 0:
+            arr[ni][nj] = 5
+
+def b(x,y,d1,d2):
+    global min_v
+    # # 선거구 나눈 거
+    num = [[0] * N for _ in range(N)]
+    # 왼쪽 (x,y) 위(x+d1,y-d1) 오른쪽(x+d1+d2,y-abs(d1-d2)) 아래(x+d2,y+d2)
+    # 5구역
+    lefti,leftj = x,y
+    upi,upj = x-d1,y+d1
+    downi,downj = x+d2,y+d2
+    righti, rightj = x-(d1 - d2) ,y + d1 + d2
+    flag = 0
+    for g,h in ((lefti,leftj),(upi,upj),(downi,downj),(righti, rightj)):
+        if 0<=g<N and 0<=h<N:
+            continue
+        else:
+            flag = 1
+    if flag:
+        return
+
+    s = [0] * 5
+
+    border(0,lefti,leftj,num,d1)
+    border(1,lefti,leftj,num,d2)
+    border(2,righti,rightj,num,d2)
+    border(3,righti,rightj,num,d1)
+
+
+
+    # 1구역
+    # x < leftj and y <= upj
+    # 2구역
+    # x <= righti and y > upj
+    # 3구역
+    # x >= lefti and y < downj
+    # 4구역
+    # x > righti and y >= downj
+
+    # 5구역
+    # else
+
+    for i in range(N):
+        for j in range(N):
+            if i < lefti and j <= upj and num[i][j] == 0: # 1구역
+                if j == upj:
+                    if i < upi:
+                        num[i][j] = 1
+                    else:
+                        num[i][j] = 5
+                else:
+                    num[i][j] = 1
+            elif i <= righti and j > upj and num[i][j] == 0:
+                if i == righti:
+                    if j >rightj:
+                        num[i][j] = 2
+                    else:
+                        num[i][j] = 5
+                else:
+                    num[i][j] = 2
+            elif i >= lefti and j < downj and num[i][j] == 0:
+                if i == lefti:
+                    if j < leftj:
+                        num[i][j] = 3
+                    else:
+                        num[i][j] = 5
+                else:
+                    num[i][j] = 3
+            elif i > righti and j >= downj and num[i][j] == 0:
+                if j == downj:
+                    if i > downi:
+                        num[i][j] = 4
+                    else:
+                        num[i][j] = 5
+                else:
+                    num[i][j] = 4
+            else:
+                if num[i][j] == 0:
+                    num[i][j] = 5
+
+    if d1 == 8:
+        print(num)
+
+    for i in range(N):
+        for j in range(N):
+            s[num[i][j]-1] += population[i][j]
+
+    max_p = max(s)
+    min_p = min(s)
+
+    diff = max_p - min_p
+
+    if min_v > diff:
+        min_v = diff
+
+N = int(input())
+population = [list(map(int, input().split())) for _ in range(N)]
+
+min_v = int(1e9)
+
+# 기준점(x,y) 경계 길이 d1,d2
+for d1 in range(1, N):
+    for d2 in range(1, N):
+        for i in range(1,N): # 1 ~
+            for j in range(N-2): # 0 ~
+                x, y = i, j
+                # if 0 <= x < x+d1+d2 < N:
+                #     if 0 <= y-d1 < y < y + d2 < N:
+                if 0 <= x + d1 - 1 < N and 0 <= x + d2 - 1 < N and 0 <= y - d1 + d2 - 1 < N:
+                    if 0 <= y - d1 and y + d2 < N and x + d1 + d2 < N:
+                        # 경계 나누기
+                        b(x,y,d1,d2)
+
+
+print(min_v)
