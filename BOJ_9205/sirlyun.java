@@ -45,7 +45,14 @@ public class Main {
                 }
             }
 
-            bfs(list);
+            boolean check = bfs(list);
+            if (check){
+                bw.write("happy\n");
+
+            }else {
+                bw.write("sad\n");
+            }
+
 //            for (int[] coordinates : list) {
 //                System.out.println("x: " + coordinates[0] + ", y: " + coordinates[1]);
 //            }
