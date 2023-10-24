@@ -10,6 +10,7 @@
     <td align="center"><a href="https://github.com/amsan2"><img src="https://avatars.githubusercontent.com/amsan2" width="130px;" alt=""></a></td>
     <td align="center"><a href="https://github.com/MyeongJinHan12"><img src="https://avatars.githubusercontent.com/MyeongJinHan12" width="130px;" alt=""></a></td>
     <td align="center"><a href="https://github.com/awayjsh"><img src="https://avatars.githubusercontent.com/awayjsh" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/calendar2"><img src="https://avatars.githubusercontent.com/calendar2" width="130px;" alt=""></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/sirlyun"><b>sirlyun</b></a></td>
@@ -17,6 +18,7 @@
     <td align="center"><a href="https://github.com/amsan2"><b>amsan2</b></a></td>
     <td align="center"><a href="https://github.com/MyeongJinHan12"><b>MyeongJinHan12</b></a></td>
     <td align="center"><a href="https://github.com/awayjsh"><b>awayjsh</b></a></td>
+    <td align="center"><a href="https://github.com/calendar2"><b>calendar2</b></a></td>
   </tr>
   <tr> 
     <td align="center"><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"><br/><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"></td>
@@ -24,6 +26,7 @@
     <td align="center"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"></td>
     <td align="center"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"></td>
     <td align="center"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"></td>
+    <td align="center"><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"><br/><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"></td>
   </tr> 
 </table>
 
