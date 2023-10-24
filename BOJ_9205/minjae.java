@@ -5,29 +5,29 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
-
+// í•œê¸€ ë‚˜ì˜¤ë‚˜?
 public class boj_9205 {
-	// Àü¿ª º¯¼ö
-	static int[] home;	// »ó±ÙÀÌ Áı ÁÂÇ¥
-	static int[][] mart;	// ÆíÀÇÁ¡ ÁÂÇ¥
-	static int[] festival;	// ÃàÁ¦ ÁÂÇ¥
-	static int[] visited;	// ¹æ¹®Ã³¸®¿ë ¹è¿­
-	static Queue<Integer> q = new LinkedList<>();	// Å¥
+	// ì „ì—­ ë³€ìˆ˜
+	static int[] home;	// ìƒê·¼ì´ ì§‘ ì¢Œí‘œ
+	static int[][] mart;	// í¸ì˜ì  ì¢Œí‘œ
+	static int[] festival;	// ì¶•ì œ ì¢Œí‘œ
+	static int[] visited;	// ë°©ë¬¸ì²˜ë¦¬ìš© ë°°ì—´
+	static Queue<Integer> q = new LinkedList<>();	// í
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int t = Integer.parseInt(br.readLine());
 		for (int tc = 0; tc < t; tc++) {
-			int n = Integer.parseInt(br.readLine());	// ÆíÀÇÁ¡ °¹¼ö
+			int n = Integer.parseInt(br.readLine());	// í¸ì˜ì  ê°¯ìˆ˜
 			
-			// Áı ÁÂÇ¥ ÀÔ·Â
+			// ì§‘ ì¢Œí‘œ ì…ë ¥
 			home = new int[2];
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			home[0] = Integer.parseInt(st.nextToken());
 			home[1] = Integer.parseInt(st.nextToken());
 			
-			// ÆíÀÇÁ¡ ÁÂÇ¥ ÀÔ·Â
+			// í¸ì˜ì  ì¢Œí‘œ ì…ë ¥
 			mart = new int[n][2];
 			visited = new int[n];
 			for (int i = 0; i < n; i++) {
@@ -36,7 +36,7 @@ public class boj_9205 {
 				mart[i][1] = Integer.parseInt(st.nextToken());
 			}
 			
-			// ÃàÁ¦ ÁÂÇ¥ ÀÔ·Â
+			// ì¶•ì œ ì¢Œí‘œ ì…ë ¥
 			festival = new int[2];
 			st = new StringTokenizer(br.readLine());
 			festival[0] = Integer.parseInt(st.nextToken());
@@ -44,51 +44,51 @@ public class boj_9205 {
 			
 			boolean result = bfs(home[0], home[1]);
 			
-			// °á°ú°ªÀÌ true¸é happy, false¸é sad Ãâ·Â
+			// ê²°ê³¼ê°’ì´ trueë©´ happy, falseë©´ sad ì¶œë ¥
 			if(result) {
 				System.out.println("happy");
 			}else {
 				System.out.println("sad");
 			}
-			// Á¦Ãâ °á°ú ArrayIndexOutOfBounds ¿¡·¯ ¹ß»ı
+			// ì œì¶œ ê²°ê³¼ ArrayIndexOutOfBounds ì—ëŸ¬ ë°œìƒ
 			
 		}// tc for
 	}
 	
 	static boolean bfs(int r, int c) {
-		// ÇöÀç ÁÂÇ¥
+		// í˜„ì¬ ì¢Œí‘œ
 		int row = r;
 		int col = c;
 		
 		if(Math.abs(festival[0]-row) + Math.abs(festival[1]-col) <= 1000) {
-			// ÇöÀç À§Ä¡¿Í ÃàÁ¦ À§Ä¡°¡ 1000m ÀÌ³»¶ó¸é
+			// í˜„ì¬ ìœ„ì¹˜ì™€ ì¶•ì œ ìœ„ì¹˜ê°€ 1000m ì´ë‚´ë¼ë©´
 			return true;
 		}
 		else {
-			// ÇöÀç À§Ä¡¿Í ÃàÁ¦ À§Ä¡°¡ 1000m ³Ñ°Ô Â÷ÀÌ³ª¸é
+			// í˜„ì¬ ìœ„ì¹˜ì™€ ì¶•ì œ ìœ„ì¹˜ê°€ 1000m ë„˜ê²Œ ì°¨ì´ë‚˜ë©´
 			for (int i = 0; i < mart.length; i++) {
-				// ÆíÀÇÁ¡À» Ã£¾Æ°£´Ù
+				// í¸ì˜ì ì„ ì°¾ì•„ê°„ë‹¤
 				if(visited[i] == 0 && (Math.abs(mart[i][0]-row) + Math.abs(mart[i][1]-col)) <= 1000) {
-					// ¾ÆÁ÷ ¹æ¹®ÇÏÁö ¾Ê¾Ò°í, ÇöÀç À§Ä¡¿ÍÀÇ Â÷ÀÌ°¡ 1000 ÀÌ³»ÀÎ ÆíÀÇÁ¡ÀÌ¶ó¸é
-					q.add(i);	// ÇØ´ç ÆíÀÇÁ¡ ¹æ¹®
+					// ì•„ì§ ë°©ë¬¸í•˜ì§€ ì•Šì•˜ê³ , í˜„ì¬ ìœ„ì¹˜ì™€ì˜ ì°¨ì´ê°€ 1000 ì´ë‚´ì¸ í¸ì˜ì ì´ë¼ë©´
+					q.add(i);	// í•´ë‹¹ í¸ì˜ì  ë°©ë¬¸
 					visited[i] = 1;
 				}
 			}
 		}
 		
 		while(q.size() > 0) {
-			int idx = q.poll();		// ¹æ¹®ÇÑ ÆíÀÇÁ¡ ÀÎµ¦½º
+			int idx = q.poll();		// ë°©ë¬¸í•œ í¸ì˜ì  ì¸ë±ìŠ¤
 			if(Math.abs(festival[0]-mart[idx][0]) + Math.abs(festival[1]-mart[idx][1]) <= 1000) {
-				// ÇöÀç À§Ä¡¿Í ÃàÁ¦ À§Ä¡°¡ 1000m ÀÌ³»¶ó¸é
+				// í˜„ì¬ ìœ„ì¹˜ì™€ ì¶•ì œ ìœ„ì¹˜ê°€ 1000m ì´ë‚´ë¼ë©´
 				return true;
 			}
 			else {
-				// ÇöÀç À§Ä¡¿Í ÃàÁ¦ À§Ä¡°¡ 1000m ³Ñ°Ô Â÷ÀÌ³ª¸é
+				// í˜„ì¬ ìœ„ì¹˜ì™€ ì¶•ì œ ìœ„ì¹˜ê°€ 1000m ë„˜ê²Œ ì°¨ì´ë‚˜ë©´
 				for (int i = 0; i < mart.length; i++) {
-					// ÆíÀÇÁ¡À» Ã£¾Æ°£´Ù
+					// í¸ì˜ì ì„ ì°¾ì•„ê°„ë‹¤
 					if(visited[i] == 0 && (Math.abs(mart[i][0]-mart[idx][0]) + Math.abs(mart[i][1]-mart[idx][1])) <= 1000) {
-						// ¾ÆÁ÷ ¹æ¹®ÇÏÁö ¾Ê¾Ò°í, ÇöÀç À§Ä¡¿ÍÀÇ Â÷ÀÌ°¡ 1000 ÀÌ³»ÀÎ ÆíÀÇÁ¡ÀÌ¶ó¸é
-						q.add(i);	// ÇØ´ç ÆíÀÇÁ¡ ¹æ¹®
+						// ì•„ì§ ë°©ë¬¸í•˜ì§€ ì•Šì•˜ê³ , í˜„ì¬ ìœ„ì¹˜ì™€ì˜ ì°¨ì´ê°€ 1000 ì´ë‚´ì¸ í¸ì˜ì ì´ë¼ë©´
+						q.add(i);	// í•´ë‹¹ í¸ì˜ì  ë°©ë¬¸
 						visited[i] = 1;
 					}
 				}
