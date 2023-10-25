@@ -1,26 +1,21 @@
-import sys
-import heapq
 
-input = sys.stdin.readline
-n = int(input())
-arr = [list(map(int, input().split())) for _ in range(n)] # [거리, 연료의 양]
-town, fuel = map(int, input().split())
-cnt = 0
-arr.append([town, 0])  # 맨 뒤에 추가(도착지점)
-arr.sort()  # 주유소 거리순 정렬
-heap = []
 
-for i in range(n+1):
-    if fuel - arr[i][0] < 0: # 현재 연료로 가장 가까운 주유소까지 가지 못함
-        while heap:
-            fuel += -heapq.heappop(heap) # 힙에 있는 연료를 높은 순으로 넣어줌
-            cnt += 1 # 충전 횟수 증가
-            if fuel - arr[i][0] >= 0:
-                break
-    if len(heap) == 0 and fuel - arr[i][0] < 0:  # 충전할 주유소가 없고 가장 가까운 주유소까지 가지 못함
-        cnt = -1  # 실패!
-        break
-    else:  # 뒤에 충전할 주유소가 있고 가장 가까운 주유소까지 갈 수 있음
-        heapq.heappush(heap, -arr[i][1])  # 힙에 연료가 높은걸 우선순위로 해서서넣어줌
+def solution(N, stages):
+    # 실패율이 높은 스테이지부터 내림차순으로 스테이지 번호 배열 리턴
+    # 실패율 = 스테이지 도달했지만 클리어x / 스테이지 도달
+    lst = []    # 스테이지 번호와 실패율 저장 위한 리스트
+    s = len(stages) # 스테이지 도달한 사람
+    for i in range(1, N+1):
+        not_clear = stages.count(i) # 스테이지 도달했지만 클리어 못한 사람
+        if s != 0:
+            fail = not_clear / s    # 실패율 계산
+        else:
+            fail = 0
+        lst.append((i,fail))    # 스테이지 번호와 실패율 묶어서 저장
+        s -= not_clear  # 전체개수에서 해당스테이지 클리어 못한 사람들을 모두 제외
 
-print(cnt)
+    lst.sort(key=lambda x: (-x[1],x[0]))  # 실패율이 높은 순, 실패율 같으면 스테이지 번호 작은 순
+    answer = []
+    for i in lst:
+        answer.append(i[0]) # 스테이지 번호만 저장
+    return answer
