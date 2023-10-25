@@ -11,9 +11,7 @@
     <td align="center"><a href="https://github.com/MyeongJinHan12"><img src="https://avatars.githubusercontent.com/MyeongJinHan12" width="130px;" alt=""></a></td>
     <td align="center"><a href="https://github.com/awayjsh"><img src="https://avatars.githubusercontent.com/awayjsh" width="130px;" alt=""></a></td>
     <td align="center"><a href="https://github.com/calendar2"><img src="https://avatars.githubusercontent.com/calendar2" width="130px;" alt=""></a></td>
-    <td align="center"><a href="https://github.com/joonann
-"><img src="https://avatars.githubusercontent.com/joonann
-" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/joonann"><img src="https://avatars.githubusercontent.com/joonann" width="130px;" alt=""></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/sirlyun"><b>sirlyun</b></a></td>
