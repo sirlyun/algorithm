@@ -23,14 +23,20 @@ class Solution {
                 if (stages[j] >= i) {
                     challenger++;
                 }
+                // System.out.println(challenger);
                 if (stages[j] == i) {
                     fail_cnt++;
                 }
+                // System.out.println(fail_cnt);
             }
-            // 스테이별 실패율을 계산해서 배열에 삽입
+            // 스테이별 실패율을 계산해서 배열에 삽입 + 스테이지 도달 유저가 없을 경우 실패율은 0
+            if (challenger == 0) {
+                challenger = 1;
+            }
             double failure = (double)fail_cnt / challenger;
             map.put(i, failure);
             fail_arr[i-1] = failure;
+            // System.out.println(failure);
         }
         
         // 실패율 내림차순
@@ -38,7 +44,7 @@ class Solution {
         
         // 1부터 N번까지의 키로 실패율을 찾고 실패율 배열을 순회하며 answer에 인덱스 삽입하기
         for (int i = 1; i <= N; i++) {
-            double temp = map.get(i);
+            double temp = (double)map.get(i);
             for (int j = 0; j < fail_arr.length; j++) {
                 if (fail_arr[j] == temp) {
                     if (answer[j] == 0) {
