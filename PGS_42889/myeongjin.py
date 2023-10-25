@@ -1,7 +1,8 @@
 import copy
 
 def solution(N, stages):
-
+    flag = 0
+    
     L = len(stages)
     result = []
     for i in range(1, N + 1):
