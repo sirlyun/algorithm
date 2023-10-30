@@ -51,7 +51,7 @@ public class Main {
             int now = 0;
 
             for (int j=0; j<4; j++){
-                if (survey[i] == og[j]){
+                if (survey[i].equals(og[j])){
                     now = j;
                     if (choices[i] < 4){
                         left += (4 - choices[i]);
@@ -59,7 +59,7 @@ public class Main {
                         right += (choices[i] - 4);
                     }
                     break;
-                } else if (survey[i] == rv[j]) {
+                } else if (survey[i].equals(rv[j])) {
                     now = j;
                     if (choices[i] < 4){
                         right += (4 - choices[i]);
