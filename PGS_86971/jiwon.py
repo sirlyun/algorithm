@@ -1,46 +1,38 @@
+
 def solution(n, wires): # 송전탑의 개수 n, 전선 정보 wires
 
-    import copy
-    min_cnt = 100000
-
-    def find_set(x):  # 대표자 출력
-        if parent[x] == x:
+    def find(x,parent):     # 부모 찾기
+        if parent[x] < 0:
             return x
-        parent[x] = find_set(parent[x])
+        parent[x] = find(parent[x],parent)
         return parent[x]
 
-    def union(x, y):  # 둘을 합침
-        x = find_set(x)
-        y = find_set(y)
+    def union(x, y,parent):  # 합침
+        x = find(x,parent)
+        y = find(y,parent)
         if x == y:
-            return
-        if x > y:
+            return -1
+        if parent[x] < parent[y]:
+            parent[x] += parent[y]
+            parent[y] = x
+        elif parent[x] > parent[y]:
+            parent[y] += parent[x]
             parent[x] = y
         else:
-            parent[y] = x
+            parent[y] += parent[x]
+            parent[x] = y
+        return 1
 
+    answer = n
     for i in range(len(wires)):
+        parent = [-1]*(n+1)
 
-        wires_2 = copy.deepcopy(wires)
-        wires_2.pop(i)
-        parent = [x for x in range(n)]
+        for a,b in (wires[:i] + wires[i+1:]):
+            union(a,b,parent)
 
-        for wire in wires_2:
-            a, b = wire
-            union(a-1,b-1)
-        #### 첫 번째 예시에서 첫 번째 전선을 없앴을 때 parent가 [0,1,1,1,1,1,1,1,1] 이런식으로 나오는지 모를 일...
-        res = set()
-        for j in parent:
-            if j != 0:
-                res.add(j)
+        group1 = parent[find(wires[i][0],parent)]
+        group2 = parent[find(wires[i][1],parent)]
+        answer = min(answer, abs(group1-group2))
+    return answer
 
-        if len(res) == 2:
-
-            lst = []
-            for r in res:
-                lst.append(r)
-
-            if min_cnt > abs(parent.count(lst[0])-parent.count(lst[1])):
-                min_cnt = abs(parent.count(lst[0])-parent.count(lst[1]))
-
-    return min_cnt
+print(solution(9,[[1,3],[2,3],[3,4],[4,5],[4,6],[4,7],[7,8],[7,9]]))
