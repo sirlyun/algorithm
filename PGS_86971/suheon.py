@@ -1,6 +1,6 @@
 '''
 갖고 있는 송전탑 개수 차이의 최소값
-union find로 해봄
+union find 가능?
 '''
 
 
@@ -28,10 +28,9 @@ def union(x, y, parents):
 def solution(n, wires):
     answer = 0
     min_v = int(1e9)
-    wires.sort()
     # 어떤 거 제외하실?
     for i in range(len(wires)):
-        parents = [0] + [i + 1 for i in range(n)]
+        parents = [i for i in range(n+1)]
         for j in range(len(wires)):
             if j == i:  # i번 째 wires 제외
                 continue
@@ -43,7 +42,10 @@ def solution(n, wires):
         first = 0
         second = 0
         temp = 0
+
         for j in range(1,n+1):
+            # wires 배열 순서에 따라 부모 찾기가 잘 안되는 경우도 생겨서 다시 해줘야 함
+            find_set(j,parents)
             if temp == 0:
                 temp = parents[j]
             if parents[j] == temp:
@@ -57,9 +59,3 @@ def solution(n, wires):
             min_v = answer
 
     return min_v
-
-n = 7
-wires = [[1,2],[2,7],[3,7],[3,4],[4,5],[6,7]]
-
-print(solution(n,wires))
-
