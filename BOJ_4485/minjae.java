@@ -2,6 +2,7 @@ package algorithm;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class boj_4485 {
@@ -12,7 +13,7 @@ public class boj_4485 {
 	static int[][] cave;
 	static int[][] size;
 	
-	private static final int INF = Integer.MAX_VALUE / 4;
+	private static final int INF = Integer.MAX_VALUE;
 	static int N, nr, nc;
 	
 	// 노드 클래스
@@ -44,25 +45,56 @@ public class boj_4485 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		int cnt = 1;
 
 		while(true) {
-			int N = Integer.parseInt(br.readLine());	// 동굴의 크기
+			N = Integer.parseInt(br.readLine());	// 동굴의 크기
 			if(N == 0) {
 				break;	// 입력이 0이면 반복 종료
 			}
 			
-			// 동굴 입력
 			cave = new int[N][N];
+			visit = new boolean[N][N];
+			size = new int[N][N];
+			
+			// 동굴 입력
 			for (int i = 0; i < N; i++) {
-				StringTokenizer st = new StringTokenizer(br.readLine());
+				st = new StringTokenizer(br.readLine());
 				for (int j = 0; j < N; j++) {
 					cave[i][j] = Integer.parseInt(st.nextToken());
+					size[i][j] = INF;
 				}
 			}
 			
-			
-		}
+			bfs(0, 0, cave[0][0]);
+			System.out.println("Problem " + cnt + ": " + size[N-1][N-1]);
+			cnt++;
+		}// while
 		
+	}
+	
+	static void bfs(int x, int y, int roopy) {
+		PriorityQueue<Node> pq = new PriorityQueue<>();
+		visit[x][y] = true;
+		pq.offer(new Node(x, y, roopy));
+		
+		while(!pq.isEmpty()) {
+			Node node = pq.poll();
+			
+			for (int i = 0; i < 4; i++) {
+				nr = node.x + dr[i];
+				nc = node.y + dc[i];
+				
+				if(nr >= 0 && nc >= 0 && nr < N && nc < N) {
+					if(!visit[nr][nc] && size[nr][nc] > (cave[nr][nc] + node.size)) {
+						size[nr][nc] = cave[nr][nc] + node.size;
+						visit[nr][nc] = true;
+						pq.offer(new Node(nr, nc, size[nr][nc]));
+					}
+				}
+			}
+		}
 	}
 
 }
