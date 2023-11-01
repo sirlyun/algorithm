@@ -1,3 +1,4 @@
+
 n, m = map(int,input().split())
 arr = [list(map(int,input().split())) for _ in range(n)]
 bum = [(0,-1,1,0),(-1,0,0,-1),(-1,0,0,1),(0,1,1,0)] # 부메랑 4가지 모양
