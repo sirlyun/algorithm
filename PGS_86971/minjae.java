@@ -3,37 +3,52 @@ import java.util.*;
 class Solution {
     public int solution(int n, int[][] wires) {
         int answer = n;
-        HashSet<Integer> setA = new HashSet<Integer>();
-        HashSet<Integer> setB = new HashSet<Integer>();
         
         // 전선을 하나씩 끊어보면서 갯수를 세보자
         for(int i = 0; i < n-1; i++) {
+            int[][] chk = new int[n-1][2];
             for(int j = 0; j < n-1; j++) {
                 if(i != j) {
-                    if(setA.size() == 0) {
-                        // setA가 비어있는지
-                        setA.add(wires[j][0]);
-                        setA.add(wires[j][1]);
-                    }
-                    else if(setA.contains(wires[j][0]) || setA.contains(wires[j][1])) {
-                        // 다음 노드 2개 중 하나라도 setA 안에 있을 경우
-                        setA.add(wires[j][0]);
-                        setA.add(wires[j][1]);
-                    }
-                    else {
-                        // setA에 값이 있으면서 다음 노드들이 setA에 소속되지 않을 경우
-                        setB.add(wires[j][0]);
-                        setB.add(wires[j][1]);
-                    }
+                    chk[j] = wires[j];
                 }
             }
-            // 한 바퀴 돌고나면 갯수 파악 + set 초기화
-            if(answer > Math.abs(setA.size() - setB.size())) {
-                answer = Math.abs(setA.size() - setB.size());
-            }
-            setA.clear();
-            setB.clear();
+            // 하나 끊고 남은 전선들을 배열에 모아 탐색
+            int cnt = bfs(chk, n);
+            answer = Math.min(answer, cnt);
         }
         return answer;
+    }
+    
+    static int bfs(int[][] chk, int n) {
+        List<List<Integer>> graph = new ArrayList<>();
+        
+        for(int i = 0; i < n+1; i++) {
+            graph.add(new ArrayList<>());
+        }
+        
+        for(int i = 0; i < n-1; i++) {
+            graph.get(chk[i][0]).add(chk[i][1]);
+            graph.get(chk[i][1]).add(chk[i][0]);
+        }
+        
+        int[] check = new int[n+1];
+        int cnt = 1;
+        
+        Queue<Integer> q = new LinkedList<>();
+        q.add(1);
+        check[1] = 1;
+        while(!q.isEmpty()) {
+            int now = q.poll();
+            
+            for(int next : graph.get(now)) {
+                if(check[next] != 1) {
+                    check[next] = 1;
+                    cnt++;
+                    q.add(next);
+                }
+            }
+        }
+        
+        return Math.abs(n - cnt*2);
     }
 }
