@@ -1,24 +1,10 @@
-# 테케 4개만 맞음
-def solution(number,k):
-    ans = []
-    num = []
-    for i in number:
-        num.append(int(i))
-    long = len(num) - k
-    i = 0
-    while long > 0:
-        if long == len(num[i:]):
-            ans.append(num[i])
-            long -= 1
-            i += 1
+def solution(number, k):
+    answer = []
+    # 맨 앞의 숫자를 가장 크게 하는 것을 중점으로 하나씩 제거해나감(스택이용)
+    for n in number:
+        while answer and answer[-1] < n and k > 0:  # 제거횟수 남음? 정답 숫자 하나이상 있음? 가져온 숫자가 정답 맨뒤숫자보다 큼?
+            k -= 1 # 제거 ㄱㄱ
+            answer.pop()
+        answer.append(n) # 나머지는 다 집어넣음
 
-        if i == i + long - 1 or i == i + long - 2:
-            ans.append(max(num[i:i + long + 1]))
-            i += num[i:i + long + 1].index(max(num[i:i + long + 1])) + 1
-            long -= 1
-        else:
-            ans.append(max(num[i:i + long - 1]))
-            i += num[i:i + long - 1].index(max(num[i:i + long - 1])) + 1
-            long -= 1
-    answer = "".join(map(str, ans))
-    return answer
+    return ''.join(answer[0:len(number) - k]) # 문자열로 변환
