@@ -1,18 +1,22 @@
-from collections import deque
 N, M = map(int, input().split())
 mat = [list(map(int, input().split())) for _ in range(N)]
-visited = [[0] * M for _ in range(N)]
+visited = [[-1] * M for _ in range(N)]
 delta = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
-queue = deque()
-queue.append((0, 0))
-visited[0][0] = 1
-while queue:
-    r, c = queue.popleft()
-    for dr, dc in delta:
-        nr, nc = r + dr, c + dc
-        if 0 <= nr < N and 0 <= nc < M and mat[r][c] > mat[nr][nc] and (r, c) != (N, M):
-            queue.append((nr, nc))
-            visited[nr][nc] += 1
+def dfs(i, j):
+    if i == N-1 and j == M-1:
+        return 1
 
-print(visited[N-1][M-1])
+    if visited[i][j] != -1:
+        return visited[i][j]
+
+    visited[i][j] = 0
+
+    for di, dj in delta:
+        ni, nj = i + di, j + dj
+        if 0 <= ni < N and 0 <= nj < M and mat[i][j] > mat[ni][nj]:
+            visited[i][j] += dfs(ni, nj)
+
+    return visited[i][j]
+
+print(dfs(0, 0))
