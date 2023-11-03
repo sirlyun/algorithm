@@ -56,6 +56,7 @@ public class Main {
         Queue<Integer> queue = new LinkedList<>();
         boolean[] visited = new boolean[N+1];
         queue.add(start);
+        visited[start] = true;
 
         while (!queue.isEmpty()){
             int now = queue.poll();
@@ -66,6 +67,7 @@ public class Main {
                     if (next[0] == end){
                         return true;
                     }
+                    visited[next[0]] = true;
                     queue.add(next[0]);
                 }
             }
@@ -79,7 +81,7 @@ public class Main {
         // 중량 최소
         int s = 1;
         //중량 최대
-        int e = 10;
+        int e = 1000000000;
 
         while (s<=e){
             // 현재 중량
