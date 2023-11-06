@@ -10,7 +10,7 @@ def dijk(start, end):
         w, f = hq.heappop(heap)  # 중량, 시작점
         w = -w
 
-        if f == end:  # 시작점 == 끝점
+        if f == end:  # 시작점 == 끝점일 때,
             print(w)
             break
 
