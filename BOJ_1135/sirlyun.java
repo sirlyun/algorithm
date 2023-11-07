@@ -34,9 +34,10 @@ public class Main {
         dp = new int[N];
 
         st = new StringTokenizer(br.readLine());
+        // 0번 idx에 대한 값 버리기
         st.nextToken();
         relation.add(new ArrayList<>());
-
+        // 트리 구조 저장
         for (int n=1; n<N; n++){
             relation.add(new ArrayList<>());
             int chk = Integer.parseInt(st.nextToken());
@@ -53,13 +54,17 @@ public class Main {
     static int dfs(int now){
         int cnt = 0;
         int maxCnt = 0;
+        // cost가 높은 idx를 앞으로 땡겨오는 우선순위 큐
         Queue<Node> queue = new PriorityQueue<>();
-
+        // 자식들 탐색
         for (Integer next : relation.get(now)){
+            // 자식이 가지고 있는 자식들의 수 저장
             dp[next] += dfs(next);
+            // 자식이 가지고 있는 자식들의 수를 cost로 한 체로 우선순위 큐에 추가
             queue.add(new Node(next, dp[next]));
         }
 
+        // 깊이가 더 깊은 자식에 대해서 maxCnt 저장
         while (!queue.isEmpty()){
             Node node = queue.poll();
             cnt += 1;
