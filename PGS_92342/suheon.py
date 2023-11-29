@@ -5,11 +5,15 @@
 1. 합이 5를 넘으면 안된다.
 2. 라이언을 이겨야 된다.
 3. 최대 점수, 그 때의 배열 저장
+4. 배열 비교
+
+
+이게 왜 됨??????
 '''
 
 c = [0] * 11
 max_score = 0
-max_array = []
+max_array = [0] * 11
 can_win = 0
 
 
@@ -38,11 +42,25 @@ def comb(x, r, n, info):  # n은 쏘는 화살 개수
             # 최대 차이가 아니면 return
             if l - p < max_score:
                 return
-            max_score = l - p
-            # 배열 비교
-            if sum(c) != n:
-                c[10] += n - sum(c)
-            max_array = c[:]
+            elif l - p == max_score:  # 같을 때는 배열 비교
+                # if sum(c) != n:     # 배열 채우기
+                #     c[10] += n-sum(c)
+
+                for i in range(10, -1, -1):
+                    if max_array[i] == c[i]:
+                        continue
+                    if max_array[i] > c[i]:
+                        break
+                    else:
+                        max_array = c[:]
+                        break
+            else:
+                max_score = l - p
+
+                # if sum(c) != n:     # 배열 채우기
+                #     c[10] += n-sum(c)
+
+                max_array = c[:]
         else:
             return
 
@@ -60,6 +78,9 @@ def solution(n, info):
 
     for i in range(1, n + 1):
         comb(11, i, n, info)
+
+    if sum(max_array) != n:  # 배열 채우기
+        max_array[10] = n - sum(max_array)
 
     if can_win:
         return max_array
