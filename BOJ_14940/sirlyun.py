@@ -24,7 +24,7 @@ def bfs(start):
         for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
             di = now_i + dx
             dj = now_j + dy
-            # 범위 내에 있으면서 방문한 적 없는 장소
+            # 범위 내에 있고, 갈 수 있으면서 방문한 적 없는 장소
             if 0<=di<N and 0<=dj<M and result[di][dj] == -1 and map_list[di][dj] == 1:
                 result[di][dj] = result[now_i][now_j] + 1
                 check.append([di, dj])
